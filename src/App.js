@@ -4,24 +4,24 @@ import { Table, Icon, Switch, Radio, Form, Divider } from 'antd';
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date',
     render: text => <a>{text}</a>,
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'leadID',
+    dataIndex: 'id',
+    key: 'id',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Phone',
+    dataIndex: 'phone',
+    key: 'phone',
   },
   {
-    title: 'Action',
-    key: 'action',
+    title: 'FB Name',
+    key: 'name',
     render: (text, record) => (
       <span>
         <a>Action 一 {record.name}</a>
@@ -40,10 +40,10 @@ const data = [];
 for (let i = 1; i <= 10; i++) {
   data.push({
     key: i,
-    name: 'John Brown',
-    age: `${i}2`,
-    address: `New York No. ${i} Lake Park`,
-    description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
+    date: 'John Brown',
+    id: `${i}2`,
+    phone: `New York No. ${i} Lake Park`,
+    name: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
   });
 }
 
@@ -89,7 +89,9 @@ class App extends React.Component {
   };
 
   handleTitleChange = enable => {
-    this.setState({ title: enable ? title : undefined });
+    this.setState({ title: enable ? title : undefined }, () => {
+      console.log(this.state)
+    });
   };
 
   handleHeaderChange = enable => {
@@ -183,6 +185,7 @@ class App extends React.Component {
           </Form>
           <Table
             {...this.state}
+            // title={title()}
             columns={columns.map(item => ({ ...item, ellipsis: state.ellipsis }))}
             dataSource={state.hasData ? data : null}
           />
