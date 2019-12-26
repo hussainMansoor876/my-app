@@ -34,6 +34,16 @@ const columns = [
       </span>
     ),
   },
+  {
+    title: 'By',
+    dataIndex: 'by',
+    key: 'by'
+  },
+  {
+    title: 'Action',
+    dataIndex: 'action',
+    key: 'key'
+  }
 ];
 
 const data = [];
@@ -44,6 +54,7 @@ for (let i = 1; i <= 10; i++) {
     id: `${i}2`,
     phone: `New York No. ${i} Lake Park`,
     name: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
+    by: 'Hello'
   });
 }
 
@@ -75,10 +86,6 @@ class App extends React.Component {
     this.setState({ tableLayout: e.target.value });
   };
 
-  handleRowSelectionChange = enable => {
-    this.setState({ rowSelection: enable ? {} : undefined });
-  };
-
   handleDataChange = hasData => {
     this.setState({ hasData });
   };
@@ -101,9 +108,6 @@ class App extends React.Component {
             className="components-table-demo-control-bar"
             style={{ marginBottom: 16 }}
           >
-            <Form.Item label="Checkbox">
-              <Switch checked={!!state.rowSelection} onChange={this.handleRowSelectionChange} />
-            </Form.Item>
             <Form.Item label="Size">
               <Radio.Group value={state.size} onChange={this.handleSizeChange}>
                 <Radio.Button value="default">Default</Radio.Button>
