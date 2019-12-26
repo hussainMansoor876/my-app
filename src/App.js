@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Table, Icon, Switch, Radio, Form, Divider } from 'antd';
+import { Table, Icon, Radio, Form, Divider, Button } from 'antd';
 
 const columns = [
   {
@@ -94,8 +94,8 @@ class App extends React.Component {
 
   showTitle = () => {
     return (
-      <div style={{ backgroundColor: 'blue' }}>
-        <h1>Hello</h1>
+      <div>
+        <Button icon="plus" style={{ paddingBottom: 2 }} />
       </div>
     )
   }
