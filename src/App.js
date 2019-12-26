@@ -47,10 +47,6 @@ for (let i = 1; i <= 10; i++) {
   });
 }
 
-const expandedRowRender = record => <p>{record.description}</p>;
-const title = () => 'Here is title';
-const showHeader = true;
-const footer = () => 'Here is footer';
 const scroll = { y: 240 };
 const pagination = { position: 'bottom' };
 
@@ -58,15 +54,10 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      bordered: false,
-      loading: false,
+      bordered: true,
       pagination,
       size: 'default',
-      title: undefined,
-      showHeader,
-      footer,
       rowSelection: {},
-      scroll: undefined,
       hasData: true,
       tableLayout: undefined,
     };
@@ -84,42 +75,21 @@ class App extends React.Component {
     this.setState({ tableLayout: e.target.value });
   };
 
-  handleEllipsisChange = enable => {
-    this.setState({ ellipsis: enable });
-  };
-
-  handleTitleChange = enable => {
-    this.setState({ title: enable ? title : undefined }, () => {
-      console.log(this.state)
-    });
-  };
-
-  handleHeaderChange = enable => {
-    this.setState({ showHeader: enable ? showHeader : false });
-  };
-
-  handleFooterChange = enable => {
-    this.setState({ footer: enable ? footer : undefined });
-  };
-
   handleRowSelectionChange = enable => {
     this.setState({ rowSelection: enable ? {} : undefined });
-  };
-
-  handleScollChange = enable => {
-    this.setState({ scroll: enable ? scroll : undefined });
   };
 
   handleDataChange = hasData => {
     this.setState({ hasData });
   };
 
-  handlePaginationChange = e => {
-    const { value } = e.target;
-    this.setState({
-      pagination: value === 'none' ? false : { position: value },
-    });
-  };
+  showTitle = () => {
+    return (
+      <div style={{ backgroundColor: 'blue' }}>
+        <h1>Hello</h1>
+      </div>
+    )
+  }
 
   render() {
     const { state } = this;
@@ -131,32 +101,8 @@ class App extends React.Component {
             className="components-table-demo-control-bar"
             style={{ marginBottom: 16 }}
           >
-            <Form.Item label="Bordered">
-              <Switch checked={state.bordered} onChange={this.handleToggle('bordered')} />
-            </Form.Item>
-            <Form.Item label="loading">
-              <Switch checked={state.loading} onChange={this.handleToggle('loading')} />
-            </Form.Item>
-            <Form.Item label="Title">
-              <Switch checked={!!state.title} onChange={this.handleTitleChange} />
-            </Form.Item>
-            <Form.Item label="Column Header">
-              <Switch checked={!!state.showHeader} onChange={this.handleHeaderChange} />
-            </Form.Item>
-            <Form.Item label="Footer">
-              <Switch checked={!!state.footer} onChange={this.handleFooterChange} />
-            </Form.Item>
             <Form.Item label="Checkbox">
               <Switch checked={!!state.rowSelection} onChange={this.handleRowSelectionChange} />
-            </Form.Item>
-            <Form.Item label="Fixed Header">
-              <Switch checked={!!state.scroll} onChange={this.handleScollChange} />
-            </Form.Item>
-            <Form.Item label="Has Data">
-              <Switch checked={!!state.hasData} onChange={this.handleDataChange} />
-            </Form.Item>
-            <Form.Item label="Ellipsis">
-              <Switch checked={!!state.ellipsis} onChange={this.handleEllipsisChange} />
             </Form.Item>
             <Form.Item label="Size">
               <Radio.Group value={state.size} onChange={this.handleSizeChange}>
@@ -171,22 +117,11 @@ class App extends React.Component {
                 <Radio.Button value="fixed">Fixed</Radio.Button>
               </Radio.Group>
             </Form.Item>
-            <Form.Item label="Pagination">
-              <Radio.Group
-                value={state.pagination ? state.pagination.position : 'none'}
-                onChange={this.handlePaginationChange}
-              >
-                <Radio.Button value="top">Top</Radio.Button>
-                <Radio.Button value="bottom">Bottom</Radio.Button>
-                <Radio.Button value="both">Both</Radio.Button>
-                <Radio.Button value="none">None</Radio.Button>
-              </Radio.Group>
-            </Form.Item>
           </Form>
           <Table
             {...this.state}
-            // title={title()}
-            columns={columns.map(item => ({ ...item, ellipsis: state.ellipsis }))}
+            title={this.showTitle}
+            columns={columns.map(item => ({ ...item }))}
             dataSource={state.hasData ? data : null}
           />
         </div>
