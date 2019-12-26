@@ -47,19 +47,21 @@ const columns = [
 ];
 
 const data = [];
-for (let i = 1; i <= 10; i++) {
+for (let i = 1; i <= 100; i++) {
   data.push({
     key: i,
     date: 'John Brown',
     id: `${i}2`,
     phone: `New York No. ${i} Lake Park`,
-    name: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
-    by: 'Hello'
+    name: `My name is John Brown, I am ${i}2 years old.`,
+    by: 'Hello',
+    action: 'Hello 123'
   });
 }
 
+
 const scroll = { y: 240 };
-const pagination = { position: 'bottom' };
+const pagination = { position: 'bottom', defaultPageSize: 50 };
 
 class App extends React.Component {
   constructor() {
@@ -125,8 +127,9 @@ class App extends React.Component {
           <Table
             {...this.state}
             title={this.showTitle}
+            // defaultExpandAllRows={true}
             columns={columns.map(item => ({ ...item }))}
-            dataSource={state.hasData ? data : null}
+            dataSource={data}
           />
         </div>
       </div>
